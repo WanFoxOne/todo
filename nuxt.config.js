@@ -1,5 +1,11 @@
 module.exports = {
     /*
+	** Nuxt.js extensions
+	*/
+    modules: [
+        '@nuxtjs/bulma'
+    ],
+    /*
 	** Headers of the page
 	*/
     head: {
@@ -39,6 +45,11 @@ module.exports = {
 		*/
         styleResources: {
             scss: './assets/scss/main.scss'
+        },
+        postcss: {
+            plugins: {
+                'postcss-custom-properties': false // Correction for Bulma
+            }
         }
     }
 };
