@@ -8,6 +8,13 @@ module.exports = {
         [ '@nuxtjs/moment', [ 'fr' ] ]
     ],
     /*
+	** Custom extensions
+	*/
+    plugins: [
+        { src: '~plugins/vuex-persistedstate', ssr: false },
+        { src: '~plugins/uniqid', ssr: true }
+    ],
+    /*
 	** Headers of the page
 	*/
     head: {

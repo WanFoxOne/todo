@@ -16,7 +16,8 @@
         "@nuxtjs/moment": "^1.0.0",
         "moment": "^2.22.2",
         "nuxt": "^1.0.0",
-        "uniqid": "^5.0.3"
+        "uniqid": "^5.0.3",
+        "vuex-persistedstate": "^2.5.4"
     },
     "devDependencies": {
         "babel-eslint": "^8.2.1",

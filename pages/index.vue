@@ -34,6 +34,9 @@
             store.commit( 'design/set_banner_content', {
                 title: 'Liste des tâches'
             } );
+        },
+        mounted() {
+            console.log(this.$uniqid());
         }
     };
 </script>
