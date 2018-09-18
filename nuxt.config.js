@@ -4,7 +4,8 @@ module.exports = {
 	*/
     modules: [
         '@nuxtjs/bulma',
-        '@nuxtjs-ext/bulma-extensions'
+        '@nuxtjs-ext/bulma-extensions',
+        [ '@nuxtjs/moment', [ 'fr' ] ]
     ],
     /*
 	** Headers of the page

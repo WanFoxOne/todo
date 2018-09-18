@@ -13,7 +13,10 @@
     "dependencies": {
         "@nuxtjs-ext/bulma-extensions": "^1.0.0",
         "@nuxtjs/bulma": "^1.2.0",
-        "nuxt": "^1.0.0"
+        "@nuxtjs/moment": "^1.0.0",
+        "moment": "^2.22.2",
+        "nuxt": "^1.0.0",
+        "uniqid": "^5.0.3"
     },
     "devDependencies": {
         "babel-eslint": "^8.2.1",

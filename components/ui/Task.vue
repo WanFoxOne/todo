@@ -5,7 +5,7 @@
                 class="title"
                 :class="{completed}">{{ title }}</p>
             <p class="subtitle">
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <time datetime="2016-1-1">{{ _date }}</time>
             </p>
         </div>
         <footer class="card-footer">
@@ -27,9 +27,19 @@
                 type: String,
                 required: true
             },
+            date: {
+                type: String,
+                required: true
+            },
             completed: {
                 type: Boolean,
                 default: false
+            }
+        },
+        computed: {
+            _date() {
+                const date = this.$moment( this.date );
+                return date.format("DD MMMM YYYY");
             }
         }
     };
@@ -38,12 +48,26 @@
 <style lang="scss" scoped>
 
     div.card {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        height: 100%;
 
-        p.title {
+        > div.card-content {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            grid-row-gap: 20px;
+            height: 100%;
 
-            &.completed {
-                color: #b0b0b0;
-                text-decoration: line-through;
+            > p {
+                margin: 0;
+
+                &.title {
+
+                    &.completed {
+                        color: #b0b0b0;
+                        text-decoration: line-through;
+                    }
+                }
             }
         }
     }

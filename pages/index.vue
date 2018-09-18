@@ -1,24 +1,20 @@
 <template>
     <section class="container">
 
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-marker is-primary"></div>
-                <div class="timeline-content">
-                    <p class="heading">Janvier 2018</p>
-                    <p>18 tâches en attente, 5 réalisées</p>
-                </div>
-            </div>
-        </div>
+        <div
+            class="is-divider"
+            data-content="Janvier 2016"></div>
 
         <div class="columns is-multiline is-mobile">
-            <div class="column is-full-mobile is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
-                <task 
-                    title="Une tâche" 
-                    completed="true"/>
-            </div>
-            <div class="column is-full-mobile is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
-                <task title="Une autre tâche"/>
+
+            <div
+                class="column is-full-mobile is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
+                v-for="todo of $store.state.todos.list"
+                :key="todo.id">
+                <task
+                    :title="todo.title"
+                    :completed="todo.completed"
+                    :date="todo.date"/>
             </div>
         </div>
 
