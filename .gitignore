@@ -1,11 +1,12 @@
 # IDE
 .idea/
 
-# dependencies
+# Dependencies
 node_modules/
-
-# logs
-npm-debug.log
 
 # Nuxt build
 .nuxt
+
+# Yarn
+yarn.lock
+yarn-error.log

@@ -1,6 +1,6 @@
 # todo
 
-> Réalisation d‘une Todolist envue.js avec Nuxt et Vuex
+> Réalisation d‘une Todolist en vue.js avec Nuxt et Vuex
 
 ## Build Setup
 

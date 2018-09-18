@@ -1,0 +1,12 @@
+image: node:latest
+
+stages:
+- deployment
+
+deployment:
+    stage: deployment
+    script:
+    - yarn global add now
+    - NOW_URL=$(now -t $ZEIT_TOKEN -n $APP_NAME --public)
+    - now alias -t $ZEIT_TOKEN set $NOW_URL $APP_NAME.now.sh
+    - echo "'$APP_NAME' deployed to $NOW_URL with $APP_NAME.now.sh alias"
