@@ -30,7 +30,7 @@
                 return this.$store.state.design.banner.sub_title;
             },
             show_banner() {
-                return !!(this.banner || this.sub_title);
+                return !!(this.title || this.sub_title);
             }
         }
     };

@@ -3,7 +3,8 @@ module.exports = {
 	** Nuxt.js extensions
 	*/
     modules: [
-        '@nuxtjs/bulma'
+        '@nuxtjs/bulma',
+        '@nuxtjs-ext/bulma-extensions'
     ],
     /*
 	** Headers of the page
