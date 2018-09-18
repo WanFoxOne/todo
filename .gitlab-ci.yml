@@ -1,0 +1,14 @@
+image: node:8
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+- deployement
+
+test_async:
+  stage: deployement
+  script:
+  - yarn global add now
+  - now --token $zeit_token
