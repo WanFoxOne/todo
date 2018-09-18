@@ -1,8 +1,4 @@
-image: node:8
-
-cache:
-    paths:
-    - node_modules/
+image: node:latest
 
 stages:
 - deployment
@@ -11,6 +7,6 @@ deployment:
     stage: deployment
     script:
     - yarn global add now
-    - NOW_URL=$(now --docker -t ${zeit_token} -n ${app_name})
-    - echo "Deployed '${app_name}' to ${NOW_URL}"
-    - now alias -t ${zeit_token} set ${NOW_URL} ${app_name}.now.sh
+    - NOW_URL=$(now -t $ZEIT_TOKEN -n $APP_NAME --public)
+    - now alias -t $ZEIT_TOKEN set $NOW_URL $APP_NAME.now.sh
+    - echo "'$APP_NAME' deployed to $NOW_URL with $APP_NAME.now.sh alias"
