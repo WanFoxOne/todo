@@ -5,7 +5,7 @@
 <script>
     export default {
         mounted() {
-            console.log(this.$store.state.todos.list)
+            console.log( this.$store.state.todos.list );
         }
     };
 </script>
