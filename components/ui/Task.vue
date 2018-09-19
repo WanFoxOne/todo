@@ -16,7 +16,8 @@
                 class="card-footer-item">Éditer</a>
             <a
                 href="#"
-                class="card-footer-item">Valider</a>
+                class="card-footer-item"
+                @click.prevent="toggle">Valider</a>
         </footer>
     </div>
 </template>
@@ -41,12 +42,15 @@
         computed: {
             _date() {
                 const date = this.$moment( this.date );
-                return date.format("DD MMMM YYYY");
+                return date.format( 'DD MMMM YYYY' );
             }
         },
         methods: {
-            isExpired(date) {
-                return (this.$moment(date) <= this.$moment());
+            isExpired( date ) {
+                return (this.$moment( date ) <= this.$moment().subtract( 1, 'd' ));
+            },
+            async toggle() {
+                this.$emit( 'toggle' );
             }
         }
     };
@@ -66,7 +70,6 @@
             position: relative;
             @extend .halo;
 
-
             * {
                 border-color: #ff3860;
             }
@@ -77,6 +80,7 @@
             grid-template-rows: 1fr auto;
             grid-row-gap: 20px;
             height: 100%;
+            overflow: hidden;
 
             > p {
                 margin: 0;
