@@ -1,47 +1,76 @@
 export const state = () => ({
-    list: [
-        {
-            id: 'jm7yz8o4',
-            title: 'Une tâche quelconque',
-            date: '2018-12-05',
-            completed: true
-        },
-        {
-            id: 'jm7z1b5v',
-            title: 'Une autre tâche quelconque',
-            date: '2018-10-09',
-            completed: false
-        },
-        {
-            id: 'jm7z1g0v',
-            title: 'Encore une autre tâche quelconque',
-            date: '2018-11-09',
-            completed: false
-        },
-        {
-            id: 'jm7z1g5z',
-            title: 'Toujours une autre tâche quelconque',
-            date: '2018-11-12',
-            completed: false
-        },
-        {
-            id: 'jm7z1g5zf',
-            title: 'FFFFe',
-            date: '2018-07-12',
-            completed: false
-        }
-    ]
+    list: []
 });
 
 export const mutations = {
-    set_banner_content( state, content ) {
-        state.banner = content;
+    /**
+     * Set tasks list
+     *
+     * @param state
+     * @param list Array
+     */
+    SET_LIST( state, list ) {
+        if ( !Array.isArray( list ) ) throw Error( 'Only array type are allowed' );
+        state.list = list;
+    },
+    CREATE_TASK( state, task ) {
+        state.list.push( task );
+    }
+};
+
+export const actions = {
+    async get_task( { commit, state }, id ) {
+
+        try {
+            const response = await this.$axios.get( `/todos/${id}` );
+            return response.data;
+        } catch ( e ) {
+            commit( 'SET_CONNECTION_FAILURE', true );
+            console.error( e );
+            return null;
+        }
+
+    },
+    async get_list( { commit }, task ) {
+
+        try {
+            const response = await this.$axios.get( '/todos' );
+            commit( 'SET_LIST', response.data );
+            return true;
+        } catch ( e ) {
+            console.error( e );
+            commit( 'SET_CONNECTION_FAILURE', true, { root: true } );
+            return false;
+        }
+
+    },
+    async create_task( { commit, state }, task ) {
+
+        try {
+            const response = await this.$axios.post( '/todos', task );
+            commit( 'CREATE_TASK', response.data );
+            return true;
+        } catch ( e ) {
+            console.error( e );
+            commit( 'SET_CONNECTION_FAILURE', true, { root: true } );
+            return false;
+        }
+    },
+    async update_task( { commit, dispatch, state }, editedTask ) {
+        try {
+            const response = await this.$axios.put( `/todos/${editedTask.id}`, editedTask );
+            dispatch( 'get_list' );
+            return true;
+        } catch ( e ) {
+            console.error( e );
+            commit( 'SET_CONNECTION_FAILURE', true, { root: true } );
+            return false;
+        }
     }
 };
 
 export const getters = {
     get_sorted_list( state ) {
-        if ( !Array.isArray( state.list ) ) throw Error( 'Only array are allowed' );
         return state.list.concat().sort( function ( a, b ) {
             return Date.parse( a.date ) > Date.parse( b.date );
         } );

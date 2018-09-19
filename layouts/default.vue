@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div 
+            class="full-popup fail" 
+            v-if="connection_failure"></div>
         <header>
             <nav
                 class="navbar is-white is-fixed-top"
@@ -39,6 +42,11 @@
     export default {
         components: {
             Banner
+        },
+        computed: {
+            connection_failure() {
+                return this.$store.state.connection_failure;
+            }
         }
     };
 </script>
