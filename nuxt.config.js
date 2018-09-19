@@ -1,5 +1,21 @@
 module.exports = {
     /*
+	** Nuxt.js extensions
+	*/
+    modules: [
+        '@nuxtjs/bulma',
+        '@nuxtjs-ext/bulma-extensions'
+    ],
+    /*
+	** Custom extensions
+	*/
+    plugins: [
+        { src: '~plugins/vuex-persistedstate', ssr: false },
+        { src: '~plugins/filters', ssr: true },
+        { src: '~plugins/moment', ssr: true },
+        { src: '~plugins/uniqid', ssr: true }
+    ],
+    /*
 	** Headers of the page
 	*/
     head: {
@@ -39,6 +55,11 @@ module.exports = {
 		*/
         styleResources: {
             scss: './assets/scss/main.scss'
+        },
+        postcss: {
+            plugins: {
+                'postcss-custom-properties': false // Correction for Bulma
+            }
         }
     }
 };
