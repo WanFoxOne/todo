@@ -17,7 +17,7 @@ module.exports = {
         { src: '~plugins/uniqid', ssr: true }
     ],
     axios: {
-        baseURL: 'https://jsonplaceholder.typicode.com'
+        baseURL: 'http://localhost:3001'
     },
     /*
 	** Headers of the page
