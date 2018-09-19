@@ -1,21 +1,34 @@
 <template>
     <section class="container">
 
-        <div
-            class="is-divider"
-            data-content="Janvier 2016"></div>
-
         <div class="columns is-multiline is-mobile">
 
-            <div
-                class="column is-full-mobile is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
-                v-for="todo of $store.state.todos.list"
-                :key="todo.id">
-                <task
-                    :title="todo.title"
-                    :completed="todo.completed"
-                    :date="todo.date"/>
-            </div>
+            <template v-for="(item, index) of anchored_list">
+
+                <!-- Divider -->
+                <div
+                    class="column is-full"
+                    :key="index"
+                    v-if="item.anchor">
+                    <div
+                        class="is-divider"
+                        :data-content="item.anchor | capitalize"></div>
+                </div>
+                <!-- END Divider -->
+
+                <!-- Task -->
+                <div
+                    class="column is-full-mobile is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
+                    :key="item.todo.id">
+                    <task
+                        :title="item.todo.title"
+                        :completed="item.todo.completed"
+                        :date="item.todo.date"/>
+                </div>
+                <!-- END Task -->
+
+            </template>
+
         </div>
 
     </section>
@@ -28,20 +41,47 @@
         components: {
             Task
         },
+        computed: {
+            anchored_list() {
+                const sorted_list = this.$store.getters[ 'todos/get_sorted_list' ];
+                let result = [];
+                let buffer = null;
+
+                for ( const todo of sorted_list ) {
+
+                    const anchor = () => {
+                        const anchor = this.$moment( todo.date ).format( 'MMMM YYYY' );
+                        console.log( anchor );
+                        if ( !buffer || anchor !== buffer ) {
+                            buffer = anchor;
+                            return anchor;
+                        }
+                        return false;
+                    };
+
+                    result.push( {
+                        anchor: anchor(),
+                        todo
+                    } );
+                }
+                return result;
+            }
+        },
         fetch( { store, params } ) {
 
             // Set banner content
             store.commit( 'design/set_banner_content', {
                 title: 'Liste des tâches'
             } );
-        },
-        mounted() {
-            console.log(this.$uniqid());
         }
     };
 </script>
 
 <style lang="scss" scoped>
+
+    section {
+        padding: 20px 0 50px;
+    }
 
     @media all and (max-width: 1087px) {
 
