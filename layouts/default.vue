@@ -7,14 +7,14 @@
                 aria-label="main navigation">
                 <div class="container">
                     <div class="navbar-brand">
-                        <a
+                        <nuxt-link
                             class="navbar-item"
-                            href="https://bulma.io">
+                            to="/">
                             <img
                                 src="~assets/imgs/logo.png"
                                 alt="Logo"
                                 height="28">
-                        </a>
+                        </nuxt-link>
                     </div>
                 </div>
             </nav>
@@ -23,13 +23,13 @@
 
         <nuxt/>
 
-        <footer class="footer">
+        <!--<footer class="footer">
             <div class="content has-text-centered">
                 <h3>
                     <strong>Fin des tâches</strong>.
                 </h3>
             </div>
-        </footer>
+        </footer>-->
     </div>
 </template>
 

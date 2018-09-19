@@ -1,7 +1,8 @@
 export const state = () => ({
     banner: {
         title: null,
-        sub_title: null
+        sub_title: null,
+        transition: true
     }
 });
 

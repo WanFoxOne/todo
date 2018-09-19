@@ -23,6 +23,12 @@ export const state = () => ({
             title: 'Toujours une autre tâche quelconque',
             date: '2018-11-12',
             completed: false
+        },
+        {
+            id: 'jm7z1g5zf',
+            title: 'FFFFe',
+            date: '2018-07-12',
+            completed: false
         }
     ]
 });

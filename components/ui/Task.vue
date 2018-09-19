@@ -1,5 +1,7 @@
 <template>
-    <div class="card">
+    <div
+        class="card"
+        :class="{'alert': isExpired(date)}">
         <div class="card-content">
             <p
                 class="title"
@@ -41,6 +43,11 @@
                 const date = this.$moment( this.date );
                 return date.format("DD MMMM YYYY");
             }
+        },
+        methods: {
+            isExpired(date) {
+                return (this.$moment(date) <= this.$moment());
+            }
         }
     };
 </script>
@@ -51,6 +58,19 @@
         display: grid;
         grid-template-rows: 1fr auto;
         height: 100%;
+
+        &.alert {
+            border: 1px solid #ff3860;
+            background-color: #ffc2c2;
+            box-shadow: none;
+            position: relative;
+            @extend .halo;
+
+
+            * {
+                border-color: #ff3860;
+            }
+        }
 
         > div.card-content {
             display: grid;
