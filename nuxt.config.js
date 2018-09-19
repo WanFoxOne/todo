@@ -4,8 +4,7 @@ module.exports = {
 	*/
     modules: [
         '@nuxtjs/bulma',
-        '@nuxtjs-ext/bulma-extensions',
-        [ '@nuxtjs/moment', [ 'fr' ] ]
+        '@nuxtjs-ext/bulma-extensions'
     ],
     /*
 	** Custom extensions
@@ -13,6 +12,7 @@ module.exports = {
     plugins: [
         { src: '~plugins/vuex-persistedstate', ssr: false },
         { src: '~plugins/filters', ssr: true },
+        { src: '~plugins/moment', ssr: true },
         { src: '~plugins/uniqid', ssr: true }
     ],
     /*
