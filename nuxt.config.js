@@ -12,6 +12,7 @@ module.exports = {
 	*/
     plugins: [
         { src: '~plugins/vuex-persistedstate', ssr: false },
+        { src: '~plugins/filters', ssr: true },
         { src: '~plugins/uniqid', ssr: true }
     ],
     /*
