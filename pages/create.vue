@@ -1,6 +1,6 @@
 <template>
     <section class="container gap">
-        <form>
+        <form @submit="submit">
 
             <!-- Content -->
             <div class="field">
@@ -10,11 +10,11 @@
                         class="input"
                         type="text"
                         placeholder="..."
-                        maxlength="150"
+                        maxlength="50"
                         v-model.trim="form.title"
                         autocomplete="off">
                 </div>
-                <p class="help">150 caractères maximum</p>
+                <p class="help">{{ length_available(50,form.title) }}</p>
             </div>
             <!-- END Content -->
 
@@ -36,12 +36,16 @@
 
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-link">Valider</button>
+                    <button
+                        class="button is-link"
+                        type="submit">Valider
+                    </button>
                 </div>
                 <div class="control">
-                    <nuxt-link 
-                        class="button is-text" 
-                        to="/">Retour</nuxt-link>
+                    <nuxt-link
+                        class="button is-text"
+                        to="/">Retour
+                    </nuxt-link>
                 </div>
             </div>
 
@@ -62,8 +66,10 @@
         },
         data: () => ({
             form: {
+                id: null,
                 title: null,
-                date: null
+                date: null,
+                completed: false
             }
         }),
         computed: {
@@ -75,6 +81,20 @@
                     return `${this.form.title.substring( 0, 46 )} ...`;
                 }
                 return this.form.title;
+            }
+        },
+        methods: {
+            length_available(max, target) {
+                if(!target) return `${max} caractère${max - 1 ? 's' : ''} maximum`;
+                const result = max - target.length;
+                return (result) ? `${result} caractère${result - 1 ? 's' : ''} restant${result - 1 ? 's' : ''}` : 'Limite du nombre de caractères atteinte';
+            },
+            async submit( event ) {
+                event.preventDefault();
+                const result = await this.$store.dispatch( 'todos/create_task', this.form );
+                if ( result ) {
+                    this.$router.push( `/#${this.form.id}` );
+                }
             }
         },
         watch: {
@@ -89,9 +109,14 @@
             }
         },
         created() {
+
+            this.form.id = this.$uniqid();
+
             const params = this.$route.params;
             if ( params.date ) {
-                this.form.date = this.$moment( params.date ).startOf( 'month' ).format( 'YYYY-MM-DD' )
+                const now = this.$moment();
+                const pre_date = this.$moment( params.date ).startOf( 'month' );
+                this.form.date = now < pre_date ? pre_date.format( 'YYYY-MM-DD' ) : now.format( 'YYYY-MM-DD' );
             }
         }
     };
