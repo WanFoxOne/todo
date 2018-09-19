@@ -4,6 +4,7 @@ module.exports = {
 	*/
     modules: [
         '@nuxtjs/bulma',
+        '@nuxtjs/axios',
         '@nuxtjs-ext/bulma-extensions'
     ],
     /*
@@ -15,6 +16,9 @@ module.exports = {
         { src: '~plugins/moment', ssr: true },
         { src: '~plugins/uniqid', ssr: true }
     ],
+    axios: {
+        baseURL: 'https://jsonplaceholder.typicode.com'
+    },
     /*
 	** Headers of the page
 	*/
