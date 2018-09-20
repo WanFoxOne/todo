@@ -11,7 +11,6 @@ module.exports = {
 	** Custom extensions
 	*/
     plugins: [
-        // { src: '~plugins/vuex-persistedstate', ssr: false },
         { src: '~plugins/vee-validate', ssr: true },
         { src: '~plugins/filters', ssr: true },
         { src: '~plugins/moment', ssr: true },
