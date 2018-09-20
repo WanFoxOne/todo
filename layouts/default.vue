@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div 
-            class="full-popup fail" 
-            v-if="connection_failure"></div>
+        <div
+            class="full-popup fail"
+            v-if="_get_connection_failure"></div>
         <header>
             <nav
                 class="navbar is-white is-fixed-top"
@@ -26,27 +26,20 @@
 
         <nuxt/>
 
-        <!--<footer class="footer">
-            <div class="content has-text-centered">
-                <h3>
-                    <strong>Fin des tâches</strong>.
-                </h3>
-            </div>
-        </footer>-->
     </div>
 </template>
 
 <script>
-    import Banner from '~/components/ui/Banner';
+    import { mapGetters } from 'vuex';
 
     export default {
         components: {
-            Banner
+            Banner: () => import('~/components/ui/Banner')
         },
         computed: {
-            connection_failure() {
-                return this.$store.state.connection_failure;
-            }
+            ...mapGetters( {
+                _get_connection_failure: `get_connection_failure`,
+            } ),
         }
     };
 </script>
@@ -60,7 +53,7 @@
     header {
 
         > nav {
-            box-shadow: 0 2px 3px hsla(0, 0%, 4%, .1);
+            box-shadow: 0 2px 3px transparentize(get-color('dark', 'black'), 0.9);
         }
     }
 

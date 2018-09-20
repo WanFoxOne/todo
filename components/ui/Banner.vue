@@ -1,20 +1,20 @@
 <template>
     <section
-        class="hero is-danger"
-        v-show="show_banner">
+        class="hero"
+        v-show="_show_banner">
         <div
             class="hero-body"
             ref="hb">
             <div class="container">
                 <h1
                     class="title"
-                    v-if="banner.title"
-                    v-html="banner.title">
+                    v-if="buffer.title"
+                    v-html="buffer.title">
                 </h1>
                 <h2
                     class="subtitle"
-                    v-if="banner.sub_title"
-                    v-html="banner.sub_title">
+                    v-if="buffer.sub_title"
+                    v-html="buffer.sub_title">
                 </h2>
             </div>
         </div>
@@ -22,25 +22,28 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         name: 'Banner',
         data: () => ({
-            banner: null
+            buffer: null
         }),
         computed: {
-            _banner() {
-                return this.$store.state.design.banner;
-            },
-            show_banner() {
-                return !!(this.banner && (this.banner.title || this.banner.sub_title));
+            ...mapGetters( {
+                _banner: `design/get_banner`
+            } ),
+            _show_banner() {
+                return !!(this._banner.title || this._banner.sub_title);
             }
         },
         watch: {
             _banner() {
-                if(!this.$refs.hb) return;
-                if(!this._banner.transition) {
-                    this.banner = this._banner;
-                    return
+                if ( !this._show_banner ) return;
+
+                if ( !this._banner.transition ) {
+                    this.buffer = this._banner;
+                    return;
                 }
 
                 const style = this.$refs.hb.style;
@@ -48,7 +51,7 @@
                 style.opacity = 0;
 
                 setTimeout( () => {
-                    this.banner = this._banner;
+                    this.buffer = this._banner;
 
                     style.transform = 'rotateY(0deg)';
                     style.opacity = 1;
@@ -56,14 +59,15 @@
             }
         },
         created() {
-            this.banner = this._banner;
+            this.buffer = this._banner;
         }
     };
 </script>
 
 <style lang="scss" scoped>
 
-    section {
+    section.hero {
+        background-color: get-color('dark', 'radical red');
 
         > .hero-body {
             padding: 2rem 1.5rem;
@@ -73,6 +77,7 @@
             h1.title,
             h2.subtitle {
                 font-weight: 300;
+                color: get-color('light', 'white');
             }
         }
     }

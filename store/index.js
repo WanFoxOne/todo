@@ -3,16 +3,26 @@ export const state = () => ({
 });
 
 export const mutations = {
-    SET_CONNECTION_FAILURE( state, boolean ) {
-        state.connection_failure = boolean;
+
+    SET_CONNECTION_FAILURE( state, {active, error} ) {
+        if(active) console.error( error );
+        state.connection_failure = active;
     }
 };
 
 export const actions = {
+
     async nuxtServerInit( { dispatch, commit }, { req } ) {
 
-        if(await dispatch( 'todos/get_list' )) {
+        if(await dispatch( 'tasks/get_list' )) {
             commit( 'SET_CONNECTION_FAILURE', false );
         }
+    }
+};
+
+export const getters = {
+
+    get_connection_failure( state ) {
+        return state.connection_failure;
     }
 };

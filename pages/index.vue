@@ -7,7 +7,7 @@
 
             <template v-for="(item, index) of anchored_list">
 
-                <!-- Divider -->
+                <!-- Smart divider -->
                 <div
                     class="column is-full"
                     :key="index"
@@ -16,7 +16,7 @@
                     <div class="inline-grid">
                         <nuxt-link
                             class="button is-primary"
-                            :to="{name: 'create', params: { date:item.task.date } }">Ajouter une tâche
+                            :to="{path: 'create', params: { date:item.task.date } }">Ajouter une tâche
                         </nuxt-link>
                         <div
                             class="is-divider"
@@ -24,7 +24,7 @@
                     </div>
 
                 </div>
-                <!-- END Divider -->
+                <!-- END Smart divider -->
 
                 <!-- Task -->
                 <div
@@ -66,24 +66,23 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import Task from '~/components/ui/Task';
 
     export default {
         components: {
-            Task
+            Task: () => import('~/components/ui/Task')
         },
-        fetch( { store, params } ) {
-
-            // Set banner content
-            store.commit( 'design/set_banner_content', { title: 'Liste des tâches', transition: true } );
+        fetch( { store } ) {
+            store.commit( 'design/SET_BANNER', { title: 'Liste des tâches', transition: true } );
         },
-        data: () => ({
-            pending: []
-        }),
         computed: {
             ...mapGetters( {
-                get_sorted_list: `todos/get_sorted_list`
+                get_sorted_list: `tasks/get_sorted_list`
             } ),
+            /**
+             * Tasks separation by months
+             * It would be better to do this process in a getter: however, I haven't found how to use MomentJS without re-importing it into the VueX module (store/tasks.js).
+             * @returns {Array}
+             */
             anchored_list() {
                 let result = [];
                 let buffer = null;
@@ -110,7 +109,14 @@
         },
         mounted() {
             if ( window.location.hash ) {
-                document.getElementById( window.location.hash.split( '#' )[ 1 ] ).classList.add( 'halo', 'success' );
+                const target = document.getElementById( window.location.hash.split( '#' )[ 1 ] );
+                if ( target ) {
+                    target.classList.add( 'halo', 'success' );
+
+                    setTimeout( () => { // Possible issue, need to be reviewed
+                        target.classList.remove( 'halo', 'success' );
+                    }, 4200 );
+                }
             }
         }
     };
@@ -124,11 +130,11 @@
             display: grid;
             grid-template-columns: auto 1fr;
             align-items: center;
-            grid-column-gap: 20px;
+            grid-column-gap: 1.25rem;
         }
 
         article.message {
-            margin-top: 10px;
+            margin-top: 0.625rem;
 
             > .message-body {
                 border-radius: 0;

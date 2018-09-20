@@ -5,19 +5,14 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
-$ npm install # Or yarn install
+# Installation des dépendances
+$ yarn install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+# Lancement de l'application (localhost:3000)
+$ yarn build && yarn start # Or yarn dev
 
-# build for production and launch server
-$ npm run build
-$ npm start
-
-# generate static project
-$ npm run generate
+# Lancement du serveur (localhost:3001)
+$ yarn api
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
-
+> Un serveur de test est disponible dans le dossier "__api" à la racine du projet
