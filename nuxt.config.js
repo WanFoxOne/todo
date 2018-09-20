@@ -17,7 +17,8 @@ module.exports = {
         { src: '~plugins/uniqid', ssr: true }
     ],
     axios: {
-        baseURL: process.env.BASE_URL || 'http://localhost:3001'
+        baseURL: process.env.BASE_URL || 'http://localhost:3001',
+        proxyHeadersIgnore: [ 'host', 'accept', 'cf-ray', 'cf-connecting-ip' ]
     },
     /*
 	** Headers of the page
