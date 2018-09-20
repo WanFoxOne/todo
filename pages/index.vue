@@ -3,7 +3,7 @@
 
         <div
             class="columns is-multiline is-mobile"
-            v-if="sorted_list.length">
+            v-if="get_sorted_list.length">
 
             <template v-for="(item, index) of anchored_list">
 
@@ -11,7 +11,7 @@
                 <div
                     class="column is-full"
                     :key="index"
-                    v-if="item.anchor && !isExpired(item.task.date)">
+                    v-if="item.anchor">
 
                     <div class="inline-grid">
                         <nuxt-link
@@ -23,7 +23,6 @@
                             :data-content="item.anchor | capitalize"></div>
                     </div>
 
-
                 </div>
                 <!-- END Divider -->
 
@@ -33,11 +32,8 @@
                     :key="item.task.id"
                     :id="item.task.id">
                     <task
-                        :title="item.task.title"
-                        :completed="item.task.completed"
-                        :date="item.task.date"
-                        :class="{'pending': is_pending(item.task.id)}"
-                        @toggle="toggle_task(item.task)"/>
+                        :task="item.task"
+                        :list="true"/>
                 </div>
                 <!-- END Task -->
 
@@ -69,6 +65,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import Task from '~/components/ui/Task';
 
     export default {
@@ -78,32 +75,24 @@
         fetch( { store, params } ) {
 
             // Set banner content
-            store.commit( 'design/set_banner_content', {
-                title: 'Liste des tâches',
-                transition: true
-            } );
+            store.commit( 'design/set_banner_content', { title: 'Liste des tâches', transition: true } );
         },
         data: () => ({
             pending: []
         }),
         computed: {
-            sorted_list() {
-                return this.$store.getters[ 'todos/get_sorted_list' ];
-            },
+            ...mapGetters( {
+                get_sorted_list: `todos/get_sorted_list`
+            } ),
             anchored_list() {
-                const sorted_list = this.sorted_list;
                 let result = [];
                 let buffer = null;
 
-                for ( const task of sorted_list ) {
+                for ( const task of this.get_sorted_list ) {
 
                     const anchor = () => {
                         const anchor = this.$moment( task.date ).format( 'MMMM YYYY' );
-                        if ( !buffer || anchor !== buffer ) {
-                            buffer = anchor;
-                            return anchor;
-                        }
-                        return false;
+                        return (!buffer || anchor !== buffer) && !this.isExpired( task.date ) ? (buffer = anchor) : false;
                     };
 
                     result.push( {
@@ -117,17 +106,6 @@
         methods: {
             isExpired( date ) {
                 return (this.$moment( date ) <= this.$moment().subtract( 1, 'd' ));
-            },
-            async toggle_task( task ) {
-                this.pending.push( task.id );
-                const editedTask = Object.assign( {}, task, { completed: !task.completed } );
-                const result = await this.$store.dispatch( 'todos/update_task', editedTask );
-                if ( result ) {
-                    this.pending.splice( this.pending.indexOf( task.id ), 1 );
-                }
-            },
-            is_pending( id ) {
-                return (this.pending.indexOf( id ) > -1);
             }
         },
         mounted() {
