@@ -14,11 +14,13 @@ module.exports = {
         { src: '~plugins/vee-validate', ssr: true },
         { src: '~plugins/filters', ssr: true },
         { src: '~plugins/moment', ssr: true },
-        { src: '~plugins/uniqid', ssr: true }
+        { src: '~plugins/uniqid', ssr: true },
+        { src: '~plugins/axios', ssr: true }
     ],
     axios: {
         baseURL: process.env.BASE_URL || 'http://localhost:3001',
-        proxyHeadersIgnore: [ 'host', 'accept', 'cf-ray', 'cf-connecting-ip' ]
+        proxyHeadersIgnore: [ 'host', 'accept', 'cf-ray', 'cf-connecting-ip' ],
+        credentials: 'same-origin'
     },
     /*
 	** Headers of the page
