@@ -5,9 +5,9 @@
     "author": "WanFoxOne <contact@corler.pro>",
     "private": true,
     "scripts": {
-        "dev": "nuxt",
+        "dev": "concurrently --kill-others \"nuxt\" \"yarn api\"",
         "build": "nuxt build",
-        "start": "nuxt start",
+        "start": "concurrently --kill-others \"nuxt start\" \"yarn api\"",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
         "api": "node_modules/.bin/json-server --watch __api/db.json --port 3001"
     },
@@ -23,6 +23,7 @@
     },
     "devDependencies": {
         "babel-eslint": "^8.2.1",
+        "concurrently": "^4.0.1",
         "eslint": "^4.15.0",
         "eslint-friendly-formatter": "^3.0.0",
         "eslint-loader": "^1.7.1",
