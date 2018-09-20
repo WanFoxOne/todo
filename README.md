@@ -9,9 +9,9 @@
 $ yarn install
 
 # Lancement de l'application (localhost:3000)
-# Un serveur de simulation est également lancé en parallèle (__api -> localhost:3001)
-$ yarn build && yarn start # Or yarn dev
+# Le serveur de simulation est lancé en parallèle (__api -> localhost:3001)
+$ yarn dev
 
-# Lancement du serveur (localhost:3001)
+# Lancement du serveur de simulation (localhost:3001)
 $ yarn api
 ```

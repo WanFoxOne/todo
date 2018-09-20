@@ -8,6 +8,7 @@
         "dev": "concurrently --kill-others \"nuxt\" \"yarn api\"",
         "build": "nuxt build",
         "start": "concurrently --kill-others \"nuxt start\" \"yarn api\"",
+        "now-start": "nuxt start",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
         "api": "node_modules/.bin/json-server --watch __api/db.json --port 3001"
     },

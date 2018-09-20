@@ -17,7 +17,7 @@ module.exports = {
         { src: '~plugins/uniqid', ssr: true }
     ],
     axios: {
-        baseURL: 'http://localhost:3001'
+        baseURL: process.env.BASE_URL || 'http://localhost:3001'
     },
     /*
 	** Headers of the page
