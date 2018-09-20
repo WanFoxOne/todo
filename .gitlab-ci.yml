@@ -7,7 +7,7 @@ deployment:
     stage: deployment
     script:
     - yarn global add now
-    - NOW_URL_APP=$(now -e BASE_URL="$API_NAME.now.sh" -t $ZEIT_TOKEN -n $APP_NAME --public --regions bru)
+    - NOW_URL_APP=$(now -e BASE_URL="https://$API_NAME.now.sh" -t $ZEIT_TOKEN -n $APP_NAME --public --regions bru)
     - now alias -t $ZEIT_TOKEN set $NOW_URL_APP $APP_NAME.now.sh
     - NOW_URL_API=$(now __api/ -t $ZEIT_TOKEN -n $API_NAME --public --regions bru)
     - now alias -t $ZEIT_TOKEN set $NOW_URL_API $API_NAME.now.sh
