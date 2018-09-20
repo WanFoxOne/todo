@@ -4,3 +4,164 @@
 html {
     overflow: auto; // Correction for Bulma
 }
+
+section.gap {
+    padding: 1.25rem 0 2.5rem;
+}
+
+.halo:not(.pending) {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        animation-name: halo;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-out;
+    }
+
+    &.alert {
+
+        &::before {
+            background-color: transparentize(get-color('dark', 'radical red'), 0.3);
+        }
+    }
+
+    &.success {
+
+        &::before {
+            background-color: transparentize(get-color('light', 'caribbean green'), 0.3);
+        }
+    }
+}
+
+.pending {
+    position: relative;
+    transition: 150ms;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-color: transparentize(get-color('dark', 'black'), 0.4);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(50% - 46px/2);
+        left: calc(50% - 46px/2);
+        width: 46px;
+        height: 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 5px;
+        border-color: get-color('light', 'white') transparent get-color('light', 'white') transparent;
+        animation: rotate 1.2s linear infinite;
+    }
+}
+
+.fail {
+    position: relative;
+
+    &::before {
+        content: 'Nos services sont actuellement indisponibles... \00000AVeuillez vérifier votre connexion et actualiser cette page';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-color: transparentize(get-color('dark', 'radical red'), 0.3);
+        color: get-color('light', 'white');
+        font-size: 1.8rem;
+        text-shadow: 1px 2px 1px get-color('dark', 'black');
+        white-space: pre-wrap;
+        text-align: center;
+    }
+}
+
+.full-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparentize(get-color('dark', 'radical red'), 0.3);
+    z-index: 1000;
+}
+
+.page-enter-active, .page-leave-active {
+    transition: opacity .3s
+}
+.page-enter, .page-leave-active {
+    opacity: 0
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+.list-item {
+    display: inline-block;
+}
+.list-enter-active, .list-leave-active {
+    transition: all 200ms;
+}
+.list-enter, .list-leave-to {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+.list-move {
+    display: inline-block;
+    transition: transform 200ms;
+}
+
+@keyframes halo {
+    from {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+    }
+    to {
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        top: -10px;
+        left: -10px;
+        opacity: 0;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@media all and (max-width: 1087px) {
+
+    section.gap {
+        margin: 0 25px;
+    }
+}

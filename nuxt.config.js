@@ -4,17 +4,21 @@ module.exports = {
 	*/
     modules: [
         '@nuxtjs/bulma',
+        '@nuxtjs/axios',
         '@nuxtjs-ext/bulma-extensions'
     ],
     /*
 	** Custom extensions
 	*/
     plugins: [
-        { src: '~plugins/vuex-persistedstate', ssr: false },
+        { src: '~plugins/vee-validate', ssr: true },
         { src: '~plugins/filters', ssr: true },
         { src: '~plugins/moment', ssr: true },
         { src: '~plugins/uniqid', ssr: true }
     ],
+    axios: {
+        baseURL: 'http://localhost:3001'
+    },
     /*
 	** Headers of the page
 	*/
@@ -32,7 +36,10 @@ module.exports = {
     /*
 	** Customize the progress bar color
 	*/
-    loading: { color: '#3B8070' },
+    loading: {
+        color: '#00CC99',
+        height: '4px'
+    },
     /*
 	** Build configuration
 	*/
