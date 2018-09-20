@@ -14,8 +14,7 @@ module.exports = {
         { src: '~plugins/vee-validate', ssr: true },
         { src: '~plugins/filters', ssr: true },
         { src: '~plugins/moment', ssr: true },
-        { src: '~plugins/uniqid', ssr: true },
-        { src: '~plugins/axios', ssr: true }
+        { src: '~plugins/uniqid', ssr: true }
     ],
     axios: {
         baseURL: process.env.BASE_URL || 'http://localhost:3001',
