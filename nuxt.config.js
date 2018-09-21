@@ -3,6 +3,16 @@ module.exports = {
 	** Nuxt.js extensions
 	*/
     modules: [
+        [
+            '@nuxtjs/proxy',
+            {
+                onProxyReq( proxyReq ) {
+                    proxyReq.removeHeader( 'cf-visitor' );
+                    proxyReq.removeHeader( 'cf-ray' );
+                    proxyReq.removeHeader( 'cf-connecting-ip' );
+                }
+            }
+        ],
         '@nuxtjs/bulma',
         '@nuxtjs/axios',
         '@nuxtjs-ext/bulma-extensions'
@@ -17,9 +27,10 @@ module.exports = {
         { src: '~plugins/uniqid', ssr: true }
     ],
     axios: {
-        baseURL: process.env.BASE_URL || 'http://localhost:3001',
-        proxyHeadersIgnore: [ 'host', 'accept', 'cf-ray', 'cf-connecting-ip' ],
-        credentials: 'same-origin'
+        proxy: true
+    },
+    proxy: {
+        '/api/': { target: process.env.BASE_URL || 'http://localhost:3001', pathRewrite: { '^/api/': '' } }
     },
     /*
 	** Headers of the page

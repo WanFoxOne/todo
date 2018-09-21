@@ -31,7 +31,7 @@ export const actions = {
     async get_list( { commit } ) {
 
         try {
-            const response = await this.$axios.get( '/tasks' );
+            const response = await this.$axios.get( '/api/tasks' );
             commit( 'SET_LIST', response.data );
             return true;
         } catch ( error ) {
@@ -43,7 +43,7 @@ export const actions = {
     async create_task( { commit, state }, task ) {
 
         try {
-            const response = await this.$axios.post( '/tasks', task );
+            const response = await this.$axios.post( '/api/tasks', task );
             commit( 'CREATE_TASK', response.data );
             return true;
         } catch ( error ) {
@@ -53,7 +53,7 @@ export const actions = {
     },
     async update_task( { commit, state }, editedTask ) {
         try {
-            await this.$axios.put( `/tasks/${editedTask.id}`, editedTask );
+            await this.$axios.put( `/api/tasks/${editedTask.id}`, editedTask );
             commit( 'UPDATE_TASK', editedTask );
             return true;
         } catch ( error ) {
@@ -63,7 +63,7 @@ export const actions = {
     },
     async delete_task( { commit, state }, id ) {
         try {
-            await this.$axios.delete( `/tasks/${id}` );
+            await this.$axios.delete( `/api/tasks/${id}` );
             commit( 'DELETE_TASK', id );
             return true;
         } catch ( error ) {
